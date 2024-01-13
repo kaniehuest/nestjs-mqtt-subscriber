@@ -1,12 +1,25 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { AppService } from './app.service';
+import {
+  Ctx,
+  MessagePattern,
+  MqttContext,
+  Payload,
+} from '@nestjs/microservices';
+
+interface Measurement {
+  timestamp: string;
+  value: number;
+}
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @MessagePattern('$share/group1/notification')
+  getNotifications(@Payload() data: Measurement, @Ctx() context: MqttContext) {
+    console.log(data);
+    console.log(`Topic: ${context.getTopic()}`);
+    console.log(`Packet: ${JSON.stringify(context.getPacket())}`);
   }
 }
