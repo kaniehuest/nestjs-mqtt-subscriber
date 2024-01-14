@@ -1,23 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { v4 as uuidv4 } from 'uuid';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MeasurementsModule } from './measurements/measurements.module';
 
 @Module({
   imports: [
-    ClientsModule.register([
-      {
-        name: 'MEASUREMENTS',
-        transport: Transport.MQTT,
-        options: {
-          url: 'mqtt://localhost:1883',
-          username: 'test',
-          password: 'test',
-          clientId: uuidv4(),
-        },
-      },
-    ]),
+    MongooseModule.forRoot(
+      'mongodb://root:root@localhost:27017/measurements?authSource=admin',
+    ),
+    MeasurementsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
