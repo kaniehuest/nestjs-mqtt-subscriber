@@ -1,17 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MeasurementsModule } from './measurements/measurements.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb://root:root@localhost:27017/measurements?authSource=admin',
+      'mongodb://root:root@localhost:27017/sensors-iot?authSource=admin',
     ),
     MeasurementsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

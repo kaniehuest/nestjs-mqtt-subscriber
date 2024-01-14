@@ -1,26 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMeasurementDto } from './dto/create-measurement.dto';
-import { UpdateMeasurementDto } from './dto/update-measurement.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Measurement } from './schemas/measurement.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class MeasurementsService {
-  create(createMeasurementDto: CreateMeasurementDto) {
-    return 'This action adds a new measurement';
-  }
+  constructor(
+    @InjectModel(Measurement.name) private measurementModel: Model<Measurement>,
+  ) {}
 
-  findAll() {
-    return `This action returns all measurement`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} measurement`;
-  }
-
-  update(id: number, updateMeasurementDto: UpdateMeasurementDto) {
-    return `This action updates a #${id} measurement`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} measurement`;
+  async create(
+    createMeasurementDto: CreateMeasurementDto,
+  ): Promise<Measurement> {
+    const createdMeasurement = new this.measurementModel(createMeasurementDto);
+    return createdMeasurement.save();
   }
 }

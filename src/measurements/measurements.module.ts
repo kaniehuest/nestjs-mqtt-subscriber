@@ -3,6 +3,8 @@ import { MeasurementsService } from './measurements.service';
 import { MeasurementsController } from './measurements.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { v4 as uuidv4 } from 'uuid';
+import { Measurement, MeasurementSchema } from './schemas/measurement.schema';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -17,6 +19,9 @@ import { v4 as uuidv4 } from 'uuid';
           clientId: uuidv4(),
         },
       },
+    ]),
+    MongooseModule.forFeature([
+      { name: Measurement.name, schema: MeasurementSchema },
     ]),
   ],
   controllers: [MeasurementsController],
