@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
   imports: [
     ClientsModule.register([
       {
-        name: 'MATH_SERVICE',
+        name: 'MEASUREMENTS',
         transport: Transport.MQTT,
         options: {
           url: 'mqtt://localhost:1883',

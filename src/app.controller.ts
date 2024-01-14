@@ -16,7 +16,7 @@ interface Measurement {
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern('$share/group1/notification')
+  @MessagePattern('$share/group1/measurements/+')
   getNotifications(@Payload() data: Measurement, @Ctx() context: MqttContext) {
     console.log(data);
     console.log(`Topic: ${context.getTopic()}`);
