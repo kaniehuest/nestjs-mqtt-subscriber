@@ -13,9 +13,9 @@ import { MongooseModule } from '@nestjs/mongoose';
         name: 'MEASUREMENTS',
         transport: Transport.MQTT,
         options: {
-          url: 'mqtt://localhost:1883',
-          username: 'test',
-          password: 'test',
+          url: process.env.MQTT_URL,
+          username: process.env.MQTT_USERNAME,
+          password: process.env.MQTT_PASSWORD,
           clientId: uuidv4(),
         },
       },

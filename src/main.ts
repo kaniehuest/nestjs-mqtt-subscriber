@@ -9,9 +9,9 @@ async function bootstrap() {
     {
       transport: Transport.MQTT,
       options: {
-        url: 'mqtt://localhost:1883',
-        password: 'test',
-        username: 'test',
+        url: process.env.MQTT_URL,
+        username: process.env.MQTT_USERNAME,
+        password: process.env.MQTT_PASSWORD,
         clientId: uuidv4(),
       },
     },
